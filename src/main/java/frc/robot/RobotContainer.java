@@ -12,6 +12,8 @@ import frc.robot.commands.IntakePivotCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakePivot;
+import frc.robot.subsystems.Ramp;
+import frc.robot.commands.RampCommand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -29,7 +31,7 @@ public class RobotContainer {
   
   private final Intake intake = new Intake();
   private final IntakePivot intakePivot = new IntakePivot();
-
+  private final Ramp ramp = new Ramp();
   
 
   
@@ -46,7 +48,7 @@ public class RobotContainer {
     
     intake.setDefaultCommand(new IntakeCommand(intake, mechController));
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
-
+    ramp.setDefaultCommand(new RampCommand(ramp, mechController));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
