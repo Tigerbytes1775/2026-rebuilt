@@ -33,7 +33,6 @@ public class ShootingSimulator {
 
     public boolean checkShot(double launchSpeed, double angle, double incline, double time, double[] robotVel, double[] robotPos, double[] target) {
         double[] result = simShot(launchSpeed, angle, incline, time, robotVel, robotPos);
-        System.out.println(getDistance(target, result));
         return getDistance(target, result) < marginOfError;
     }
 
