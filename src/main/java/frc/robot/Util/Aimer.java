@@ -17,20 +17,28 @@ public class Aimer {
     }
 
     private double getTurretAngle(double[] target) {
-        return Math.tan(target[1]/target[0]);
+        return Math.atan2(target[1],target[0]);
     }
 
     private double getLaunchSpeed(double distance, double height, double incline) {
         return Math.sqrt(-(9.81*distance*distance)/((2*Math.cos(incline)*Math.cos(incline)) * (height-distance*Math.tan(incline))));
     }
 
+
+    /*
+     * returns information on how to aim a shot based of the parametres.
+     * returns an array formated as shown: {time,launchSpeed, turretAngle}
+     */
     public double[] aimShot(double incline, double[] pos, double[] target, double[] robotVel) {
         boolean inaccurate = true;
         double time = 0;
         double launchSpeed= 0;
         double angle = 0;
-
+        int iterations = 0;
         while (inaccurate) {
+            iterations += 1;
+
+            System.out.println(iterations);
             double[] difference = new double[3];
 
             for(int i = 0; i < 3; i++) {
@@ -44,7 +52,7 @@ public class Aimer {
             time = getTime(launchSpeed, distance, incline);
 
 
-            inaccurate = !shooterSim.checkShot(launchSpeed, angle, incline, time, robotVel, robotVel, target);
+            inaccurate = !shooterSim.checkShot(launchSpeed, angle, incline, time, robotVel, pos, target);
 
         }
         double[] result = {time,launchSpeed,angle};

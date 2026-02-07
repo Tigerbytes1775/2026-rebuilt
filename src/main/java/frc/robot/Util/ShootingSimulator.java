@@ -9,12 +9,12 @@ public class ShootingSimulator {
     
     public ShootingSimulator() {}
 
-    public double[] shoot(double launchSpeed, double angle, double incline, double time,  double[] robotVel, double[] robotPos) {
+    public double[] simShot(double launchSpeed, double angle, double incline, double time,  double[] robotVel, double[] robotPos) {
         
         double[] result = {
-            (Math.cos(incline) * Math.cos(angle) * launchSpeed) * time + robotVel[0],
-            (Math.cos(incline) * Math.sin(angle) * launchSpeed) * time + robotVel[1],
-            (Math.sin(incline) * launchSpeed - 4.905 * time) * time + robotVel[2]
+            (Math.cos(incline) * Math.cos(angle) * launchSpeed + robotVel[0]) * time + robotPos[0],
+            (Math.cos(incline) * Math.sin(angle) * launchSpeed + robotVel[1]) * time + robotPos[1],
+            (Math.sin(incline) * launchSpeed - 4.905 * time) * time + robotPos[2]
         };
 
         return result;
@@ -32,7 +32,8 @@ public class ShootingSimulator {
     }
 
     public boolean checkShot(double launchSpeed, double angle, double incline, double time, double[] robotVel, double[] robotPos, double[] target) {
-        double[] result = shoot(launchSpeed, angle, incline, time, robotVel, robotPos);
+        double[] result = simShot(launchSpeed, angle, incline, time, robotVel, robotPos);
+        System.out.println(getDistance(target, result));
         return getDistance(target, result) < marginOfError;
     }
 
