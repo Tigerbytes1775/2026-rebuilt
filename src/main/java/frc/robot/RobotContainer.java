@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
@@ -13,7 +12,9 @@ import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.Ramp;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.TurretSubsystems.Launch;
+import frc.robot.subsystems.TurretSubsystems.LazySusan;
+import frc.robot.subsystems.TurretSubsystems.Turret;
 import frc.robot.commands.RampCommand;
 import frc.robot.commands.TurretTeleopCommand;
 import edu.wpi.first.wpilibj.XboxController;
@@ -34,7 +35,10 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final IntakePivot intakePivot = new IntakePivot();
   private final Ramp ramp = new Ramp();
-  private final Turret turret = new Turret();
+  private final Launch launch = new Launch();
+  private final LazySusan lazySusan = new LazySusan();
+
+  private final Turret turret = new Turret(launch,lazySusan);
   
 
   

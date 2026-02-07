@@ -25,7 +25,7 @@ public class Aimer {
     }
 
 
-    /*
+    /**
      * returns information on how to aim a shot based of the parametres.
      * returns an array formated as shown: {time,launchSpeed, turretAngle}
      */
