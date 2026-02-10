@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
     
     
-    private final SparkMax intakeMotor = new SparkMax(23, SparkLowLevel.MotorType.kBrushless);
+    private final SparkMax intakeMotor = new SparkMax(27, SparkLowLevel.MotorType.kBrushless);
 
     private final double intakeStrength = 0.5;
     

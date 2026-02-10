@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakePivot extends SubsystemBase {
     
     
-    private final SparkMax intakePivotMotor = new SparkMax(24, SparkLowLevel.MotorType.kBrushless);
+    private final SparkMax intakePivotMotor = new SparkMax(28, SparkLowLevel.MotorType.kBrushless);
 
     private final double intakeStrenght = 1.0;
     

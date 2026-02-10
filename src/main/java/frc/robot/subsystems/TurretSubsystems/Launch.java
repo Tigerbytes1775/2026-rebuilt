@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Launch extends SubsystemBase {
 
-    private final TalonFX launchMotor1 = new TalonFX(5);
-    private final TalonFX launchMotor2 = new TalonFX(6);
+    private final TalonFX launchMotor1 = new TalonFX(31);
+    private final TalonFX launchMotor2 = new TalonFX(32);
 
     public final double incline = Math.toRadians(70);
 
