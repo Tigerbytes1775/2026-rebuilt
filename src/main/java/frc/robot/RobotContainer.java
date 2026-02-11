@@ -4,23 +4,35 @@
 
 package frc.robot;
 
+import java.util.function.DoubleSupplier;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakePivotCommand;
+import frc.robot.commands.RampCommand;
+import frc.robot.commands.TurretTeleopCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.Ramp;
+import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.LazySusan;
 import frc.robot.subsystems.TurretSubsystems.Turret;
-import frc.robot.commands.RampCommand;
-import frc.robot.commands.TurretTeleopCommand;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import swervelib.SwerveDrive;
+import swervelib.SwerveInputStream;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,7 +41,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  // The robot's subsystems and commands are defined here..
+  
+  private final SwerveSubsystem swerveSubsystem;
+  private final SwerveDrive swerveDrive;
+
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
   private final Intake intake = new Intake();
@@ -42,11 +58,21 @@ public class RobotContainer {
   
 
   
-  private final XboxController driveController = new XboxController(0);
+  private final XboxController driverController = new XboxController(0);
   private final XboxController mechController = new XboxController(1);
 
+  //private final SendableChooser<Command> autoChooser;
+
+
   public RobotContainer() {
+    //autoChooser = AutoBuilder.buildAutoChooser();
+    //SmartDashboard.putData("Auto Chooser", autoChooser);
     // Configure the trigger bindings
+    
+
+    this.swerveSubsystem = new SwerveSubsystem();
+    this.swerveDrive = swerveSubsystem.getSwerveDrive();
+
     configureBindings();
     configuesCommands();
   }
@@ -68,13 +94,31 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    DoubleSupplier swerveScalar = () -> driverController.getLeftBumperButton() || driverController.getRightBumperButton() ? 0.5 : 1.0;
+    SwerveInputStream driveAngularVelocity = SwerveInputStream.of(
+      swerveSubsystem.getSwerveDrive(),
+      () -> driverController.getLeftY() * -swerveScalar.getAsDouble(),
+      () -> driverController.getLeftX() * -swerveScalar.getAsDouble()
+    )
+      .withControllerRotationAxis(() -> -driverController.getRightX() * swerveScalar.getAsDouble())
+      .deadband(OperatorConstants.DEADBAND)
+      .scaleTranslation(0.8)//####################################driver 1 deadband##################################3
+      .allianceRelativeControl(true);
 
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+      
+    //SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
+    //  .withControllerHeadingAxis(driverController::getRightX,
+    //      driverController::getRightY)
+    //  .headingWhile(false);
+    //// affects the things
+    //Command driveFieldOrientedDirectAngle = swerveSubsystem.driveFieldOriented(driveDirectAngle);
+
+    Command DriveFieldOrientedAngularVelocity = swerveSubsystem.driveFieldOriented(
+      driveAngularVelocity, 
+      () -> driverController.getPOV() != -1
+    );
+    swerveSubsystem.setDefaultCommand(DriveFieldOrientedAngularVelocity);
   }
 
   /**
@@ -83,7 +127,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    //return autoChooser.getSelected();
+    return null;
   }
 }

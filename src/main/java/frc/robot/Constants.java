@@ -9,6 +9,9 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
+import edu.wpi.first.math.util.Units;
+
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -25,35 +28,6 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
 
     public static final double triggerDeadband = 0.1;
-  }
-
-  public static class Targets {
-
-    public static final double[] hub;
-    public static final double[] leftShot;
-    public static final double[] rightShot;
-    public static final double[] farShot;
-
-    static {
-      if (isBlue) {
-        hub = new double[] {4.035,4.03,1.1938};
-        leftShot = new double[] {2,2,0};
-        rightShot = new double[] {6,2,0};
-        farShot = new double[] {4.035,2,0};
-      } else {
-        hub = new double[] {4.035,4.03,1.1938};
-        leftShot = new double[] {2,2,0};
-        rightShot = new double[] {6,2,0};
-        farShot = new double[] {4.035,2,0};
-      }
-
-
-    }
-    
-    
-  
-
-    
-
+    public static final double DEADBAND = 0.2;
   }
 }

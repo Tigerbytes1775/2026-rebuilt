@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Ramp extends SubsystemBase {
     
     
-    private final SparkMax ramp1 = new SparkMax(26, SparkLowLevel.MotorType.kBrushless);
-    private final SparkMax ramp2 = new SparkMax(32, SparkLowLevel.MotorType.kBrushless);
+    private final SparkMax ramp1 = new SparkMax(29, SparkLowLevel.MotorType.kBrushless);
+    private final SparkMax ramp2 = new SparkMax(30, SparkLowLevel.MotorType.kBrushless);
 
     private final double rampStrength = 0.5;
     

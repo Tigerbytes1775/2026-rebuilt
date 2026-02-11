@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LazySusan extends SubsystemBase {
 
 
-    private final SparkFlex motor = new SparkFlex(4, MotorType.kBrushless);
+    private final SparkFlex motor = new SparkFlex(34, MotorType.kBrushless);
     private final RelativeEncoder encoder = motor.getEncoder(); 
 
     private final DoubleSupplier rotationSupplier = encoder::getPosition;
