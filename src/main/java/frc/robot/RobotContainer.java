@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -21,11 +22,13 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakePivotCommand;
 import frc.robot.commands.RampCommand;
 import frc.robot.commands.TurretTeleopCommand;
+import frc.robot.commands.VisionTeleopCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.LazySusan;
 import frc.robot.subsystems.TurretSubsystems.Turret;
@@ -43,8 +46,8 @@ import swervelib.SwerveInputStream;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here..
   
-  private final SwerveSubsystem swerveSubsystem;
-  private final SwerveDrive swerveDrive;
+  private final SwerveSubsystem swerveSubsystem= new SwerveSubsystem();
+  private final SwerveDrive swerveDrive = swerveSubsystem.getSwerveDrive();
 
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   
@@ -53,8 +56,9 @@ public class RobotContainer {
   private final Ramp ramp = new Ramp();
   private final Launch launch = new Launch();
   private final LazySusan lazySusan = new LazySusan();
+  private final Vision vision = new Vision(swerveDrive);
 
-  private final Turret turret = new Turret(launch,lazySusan);
+  private final Turret turret = new Turret(launch,lazySusan,swerveSubsystem);
   
 
   
@@ -70,8 +74,6 @@ public class RobotContainer {
     // Configure the trigger bindings
     
 
-    this.swerveSubsystem = new SwerveSubsystem();
-    this.swerveDrive = swerveSubsystem.getSwerveDrive();
 
     configureBindings();
     configuesCommands();
@@ -83,6 +85,7 @@ public class RobotContainer {
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampCommand(ramp, mechController));
     turret.setDefaultCommand(new TurretTeleopCommand(turret, mechController));
+    vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
