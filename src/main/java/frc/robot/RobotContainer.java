@@ -65,12 +65,12 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(0);
   private final XboxController mechController = new XboxController(1);
 
-  //private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> autoChooser;
 
 
   public RobotContainer() {
-    //autoChooser = AutoBuilder.buildAutoChooser();
-    //SmartDashboard.putData("Auto Chooser", autoChooser);
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
     // Configure the trigger bindings
     
 
@@ -130,7 +130,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return autoChooser.getSelected();
-    return null;
+    return autoChooser.getSelected();
   }
 }
