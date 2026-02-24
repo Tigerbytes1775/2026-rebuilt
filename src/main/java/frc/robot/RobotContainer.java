@@ -23,8 +23,10 @@ import frc.robot.commands.IntakePivotCommand;
 import frc.robot.commands.RampCommand;
 import frc.robot.commands.TurretTeleopCommand;
 import frc.robot.commands.VisionTeleopCommand;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -59,7 +61,7 @@ public class RobotContainer {
   private final Vision vision = new Vision(swerveDrive);
 
   private final Turret turret = new Turret(launch,lazySusan,swerveSubsystem);
-  
+  private final Climb climb = new Climb();
 
   
   private final XboxController driverController = new XboxController(0);
@@ -82,6 +84,7 @@ public class RobotContainer {
   private void configuesCommands() {
     
     intake.setDefaultCommand(new IntakeCommand(intake, mechController));
+    climb.setDefaultCommand(new ClimbCommand(climb, driverController) );
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampCommand(ramp, mechController));
     turret.setDefaultCommand(new TurretTeleopCommand(turret, mechController));
