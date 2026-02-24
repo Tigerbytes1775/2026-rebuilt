@@ -8,6 +8,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -23,7 +24,8 @@ import frc.robot.commands.IntakePivotCommand;
 import frc.robot.commands.RampCommand;
 import frc.robot.commands.TurretTeleopCommand;
 import frc.robot.commands.VisionTeleopCommand;
-import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.ClimbTeleopCommand;
+import frc.robot.commands.ClimbAutoCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climb;
@@ -72,6 +74,13 @@ public class RobotContainer {
 
 
   public RobotContainer() {
+
+
+    NamedCommands.registerCommand("ClimbHookUp", new ClimbAutoCommand(climb, 1));
+    NamedCommands.registerCommand("ClimbHookDown", new ClimbAutoCommand(climb, 0));
+
+
+
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
     // Configure the trigger bindings
@@ -85,7 +94,7 @@ public class RobotContainer {
   private void configuesCommands() {
     
     intake.setDefaultCommand(new IntakeCommand(intake, mechController));
-    climb.setDefaultCommand(new ClimbCommand(climb, driverController) );
+    climb.setDefaultCommand(new ClimbTeleopCommand(climb, driverController) );
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampCommand(ramp, mechController));
     turret.setDefaultCommand(new TurretTeleopCommand(turret, driverController));

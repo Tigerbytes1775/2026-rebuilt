@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climb;
 
-public class ClimbCommand extends Command{
+public class ClimbTeleopCommand extends Command{
 
     private final Climb climb;
     private final XboxController controller;
 
-    public ClimbCommand(Climb climb, XboxController controller) {
+    public ClimbTeleopCommand(Climb climb, XboxController controller) {
         addRequirements(climb);
         this.climb = climb;
         this.controller = controller;
@@ -19,13 +19,10 @@ public class ClimbCommand extends Command{
 
     @Override
     public void execute(){
-
-        if (controller.getRightY() >= 0.2) {
-            climb.setMotors(1);
-        } else if (controller.getRightY() <= -0.2 ) {
-            climb.setMotors(-1);
-        } else {
-            climb.setMotors(0);
+        if (controller.getLeftBumperButton()){
+            climb.setTarget(0); //go to bottom
+        } else if (controller.getRightBumperButton()){
+            climb.setTarget(1); //go to top
         }
     }
 
