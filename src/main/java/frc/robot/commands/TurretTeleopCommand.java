@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TurretSubsystems.Turret;
-
+import frc.robot.Constants.Targets;
 public class TurretTeleopCommand extends Command {
 
     
@@ -20,20 +20,17 @@ public class TurretTeleopCommand extends Command {
 
     @Override
     public void execute() {
-        double[] hub = {4.035,4.03,1.1938}; //fix
-        double[] leftShot = {2,2,0};
-        double[] rightShot = {6,2,0};
-        double[] farShot = {4.035,2,0};
+
 
         boolean shooting = true;
         if (controller.getAButton()) {
-            turret.launch(hub);
+            turret.launch(Targets.hub);
         } else if (controller.getXButton()) {
-            turret.launch(leftShot);
+            turret.launch(Targets.leftShot);
         } else if (controller.getBButton()) {
-            turret.launch(rightShot);
+            turret.launch(Targets.rightShot);
         } else if (controller.getYButton()) {
-            turret.launch(farShot);
+            turret.launch(Targets.farShot);
         } else {
            shooting = false;  
         }

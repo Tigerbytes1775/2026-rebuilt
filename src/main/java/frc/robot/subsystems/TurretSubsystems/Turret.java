@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Vision;
 import frc.robot.Util.Aimer;
 import frc.robot.Util.ShootingSimulator;
 import frc.robot.subsystems.Ramp;
