@@ -58,9 +58,7 @@ public class RobotContainer {
   private final LazySusan lazySusan = new LazySusan();
   private final Vision vision = new Vision(swerveDrive);
 
-  private final Turret turret = new Turret(launch,lazySusan,swerveSubsystem);
-  
-
+  private final Turret turret = new Turret(launch,lazySusan,ramp,swerveSubsystem);
   
   private final XboxController driverController = new XboxController(0);
   private final XboxController mechController = new XboxController(1);
@@ -84,7 +82,7 @@ public class RobotContainer {
     intake.setDefaultCommand(new IntakeCommand(intake, mechController));
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampCommand(ramp, mechController));
-    turret.setDefaultCommand(new TurretTeleopCommand(turret, mechController));
+    turret.setDefaultCommand(new TurretTeleopCommand(turret, driverController));
     vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
   }
   /**

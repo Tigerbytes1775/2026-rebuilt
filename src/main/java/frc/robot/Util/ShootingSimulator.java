@@ -36,4 +36,23 @@ public class ShootingSimulator {
         return getDistance(target, result) < marginOfError;
     }
 
+    public boolean checkShot(double launchSpeed, double angle, double incline, double[] robotVel, double[] robotPos, double[] target, double marginOfError) {
+
+        boolean inAir = true;
+        double time = 0.1;
+        while(inAir) {
+
+            double[] result = simShot(launchSpeed, angle, incline, time, robotVel, robotPos);
+            time += 0.005;
+            if (getDistance(result, target) < marginOfError) {
+                return true;
+            }
+
+            inAir = result[2] >= 0;
+        }
+
+        return false;
+
+    }
+
 }

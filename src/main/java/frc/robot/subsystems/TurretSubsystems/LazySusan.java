@@ -12,11 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LazySusan extends SubsystemBase {
 
+    private final double gearRatio = 36/200;
 
     private final SparkFlex motor = new SparkFlex(34, MotorType.kBrushless);
     private final RelativeEncoder encoder = motor.getEncoder(); 
-
-    private final DoubleSupplier rotationSupplier = encoder::getPosition;
 
     private PIDController pidController =  new PIDController(
             0.001,
@@ -41,9 +40,13 @@ public class LazySusan extends SubsystemBase {
         
     }
 
+    public double getRotation() {
+        return encoder.getPosition() * gearRatio;
+    }
+
     @Override
     public void periodic() {
-        double percent = pidController.calculate(rotationSupplier.getAsDouble());
+        double percent = pidController.calculate(encoder.getPosition());
         SmartDashboard.putNumber("Turret Rotation Power", percent);
         setMotors(percent);
     }

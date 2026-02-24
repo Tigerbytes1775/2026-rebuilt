@@ -34,11 +34,10 @@ public class Aimer {
         double time = 0;
         double launchSpeed= 0;
         double angle = 0;
-        int iterations = 0;
-        while (inaccurate) {
-            iterations += 1;
 
-            System.out.println(iterations);
+        while (inaccurate) {
+
+
             double[] difference = new double[3];
 
             for(int i = 0; i < 3; i++) {
