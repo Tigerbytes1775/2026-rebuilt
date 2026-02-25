@@ -4,7 +4,7 @@ package frc.robot.Util;
 
 
 public class ShootingSimulator {
-
+    private final double turretHeight = 0.22;
     private final double marginOfError = 0.0001;
     
     public ShootingSimulator() {}
@@ -14,7 +14,7 @@ public class ShootingSimulator {
         double[] result = {
             (Math.cos(incline) * Math.cos(angle) * launchSpeed + robotVel[0]) * time + robotPos[0],
             (Math.cos(incline) * Math.sin(angle) * launchSpeed + robotVel[1]) * time + robotPos[1],
-            (Math.sin(incline) * launchSpeed - 4.905 * time) * time + robotPos[2]
+            (Math.sin(incline) * launchSpeed - 4.905 * time) * time + turretHeight
         };
 
         return result;
@@ -43,11 +43,11 @@ public class ShootingSimulator {
         while(inAir) {
 
             double[] result = simShot(launchSpeed, angle, incline, time, robotVel, robotPos);
-            time += 0.005;
+            time += 0.1;
             if (getDistance(result, target) < marginOfError) {
                 return true;
             }
-
+            System.out.println(result);
             inAir = result[2] >= 0;
         }
 

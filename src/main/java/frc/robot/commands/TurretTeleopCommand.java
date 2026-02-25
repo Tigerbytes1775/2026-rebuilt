@@ -34,7 +34,7 @@ public class TurretTeleopCommand extends Command {
         } else {
            shooting = false;  
         }
-
+        //System.out.println(shooting);
         SmartDashboard.putBoolean("Shooting", shooting);
 
     }

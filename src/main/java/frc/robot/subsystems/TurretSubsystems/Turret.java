@@ -59,7 +59,7 @@ public class Turret extends SubsystemBase{
         ShootingSimulator sim = new ShootingSimulator();
 
 
-        targetMarker.setPose(target[0], target[1], new Rotation2d(0,0));
+        targetMarker.setPose(target[0], target[1], new Rotation2d(0));
         SmartDashboard.putNumberArray("Turret Target", target);
         SmartDashboard.putData("Field", field);
 

@@ -60,7 +60,7 @@ public class RobotContainer {
   private final Ramp ramp = new Ramp();
   private final Launch launch = new Launch();
   private final LazySusan lazySusan = new LazySusan();
-  private final Vision vision = new Vision(swerveDrive);
+  //private final Vision vision = new Vision(swerveDrive);
 
 
   private final Climb climb = new Climb();
@@ -98,7 +98,7 @@ public class RobotContainer {
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampCommand(ramp, mechController));
     turret.setDefaultCommand(new TurretTeleopCommand(turret, driverController));
-    vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
+    //vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
