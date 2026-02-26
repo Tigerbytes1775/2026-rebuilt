@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B N to shootN"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B shootN to Fuel"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B fuel to shootN"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B shootN to climb"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Blue",
+  "choreoAuto": false
+}

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 2.1,
+        "y": 2.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 1.9947503566373523,
+        "y": 1.2079029957152556
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "South Shoot"
     },
     {
       "anchor": {
-        "x": 3.909671897289586,
-        "y": 7.0
+        "x": 0.44211126961880765,
+        "y": 0.6774179743172521
       },
       "prevControl": {
-        "x": 2.909671897289586,
-        "y": 7.0
+        "x": 1.321940085595983,
+        "y": 0.7032952924342306
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Human Player Fill"
     }
   ],
   "rotationTargets": [],
@@ -45,10 +45,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blue",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 37.82881657755603
   },
   "useDefaultConstraints": true
 }

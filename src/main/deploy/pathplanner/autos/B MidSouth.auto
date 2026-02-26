@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B SM to shootS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B shootS to Human"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B Human to shootS"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "B shootS to Neutral"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": "Blue",
+  "choreoAuto": false
+}
