@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "B N to shootN"
+            "pathName": "L to shootL"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B shootN to Fuel"
+            "pathName": "shootL to Fuel"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B fuel to shootN"
+            "pathName": "fuel to shootL"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B shootN to climb"
+            "pathName": "shootL to climb"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Blue",
+  "folder": null,
   "choreoAuto": false
 }

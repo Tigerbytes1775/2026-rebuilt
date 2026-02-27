@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.636650602409638,
-        "y": 2.5706867469879513
+        "x": 0.5441084337349398,
+        "y": 5.97
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.208724296065052,
-        "y": 2.4946731418031285
+        "x": 1.5441084337349396,
+        "y": 5.97
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "B fuel"
     },
     {
       "anchor": {
         "x": 2.1,
-        "y": 2.1
+        "y": 5.9
       },
       "prevControl": {
-        "x": 3.138247398287011,
-        "y": 2.6189439055882477
+        "x": 1.1,
+        "y": 5.9
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "South Shoot"
+      "linkedName": "B ShootN"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 37.82881657755603
+    "rotation": -36.62193816125369
   },
   "reversed": false,
-  "folder": "Blue",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

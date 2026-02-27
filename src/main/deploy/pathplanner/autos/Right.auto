@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "B S to shootS"
+            "pathName": "R to shootR"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B shootS to Human"
+            "pathName": "shootR to Human"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B Human to shootS"
+            "pathName": "Human to shootR"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B shootS to Neutral"
+            "pathName": "shootR to Neutral"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Blue",
+  "folder": null,
   "choreoAuto": false
 }

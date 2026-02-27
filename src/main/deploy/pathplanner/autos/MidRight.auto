@@ -7,31 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "B NM to shootN"
+            "pathName": "MidR to shootR"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B shootN to Fuel"
+            "pathName": "shootR to Human"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B fuel to shootN"
+            "pathName": "Human to shootR"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B shootN to Neutral"
+            "pathName": "shootR to Neutral"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "Blue",
+  "folder": null,
   "choreoAuto": false
 }
