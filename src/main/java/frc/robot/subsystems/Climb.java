@@ -25,9 +25,7 @@ public class Climb extends SubsystemBase {
             SmartDashboard.putNumberArray("Climb PID", new double[]{0,0,0});
         }
         
-
         PIDvalues = SmartDashboard.getNumberArray("Climb PID", new double[]{0,0,0});
-
 
         pidController =  new PIDController(
             PIDvalues[0],

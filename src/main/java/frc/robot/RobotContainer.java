@@ -89,10 +89,10 @@ public class RobotContainer {
   private void configuesCommands() {
     
     intake.setDefaultCommand(new IntakeCommand(intake, mechController));
-    climb.setDefaultCommand(new ClimbTeleopCommand(climb, driverController) );
+    climb.setDefaultCommand(new ClimbTeleopCommand(climb, mechController) );
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampTeleopCommand(ramp, mechController));
-    turret.setDefaultCommand(new TurretTeleopCommand(turret, driverController));
+    turret.setDefaultCommand(new TurretTeleopCommand(turret, mechController));
     //vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
   }
   /**

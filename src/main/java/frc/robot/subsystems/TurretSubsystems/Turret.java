@@ -30,9 +30,9 @@ public class Turret extends SubsystemBase{
 
     private final double acceptableMOE = 0.2;//MOE is margin of error
 
-    private final Launch launch;
-    private final Ramp ramp;
-    private final LazySusan lazySusan;
+    public final Launch launch;
+    public final Ramp ramp;
+    public final LazySusan lazySusan;
     private final SwerveSubsystem swerve;
 
     public Turret(Launch launch, LazySusan lazySusan, Ramp ramp, SwerveSubsystem swerve) {
@@ -41,6 +41,9 @@ public class Turret extends SubsystemBase{
         this.ramp = ramp;
         this.swerve = swerve;
     }
+
+
+    
 
     public void aim(double target[]) {
         //System.out.println("Aiming Started");

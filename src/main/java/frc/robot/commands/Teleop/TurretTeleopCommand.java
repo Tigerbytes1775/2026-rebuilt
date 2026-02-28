@@ -28,6 +28,8 @@ public class TurretTeleopCommand extends Command {
         }
         
         customShot = SmartDashboard.getNumberArray("Custom Shot", Targets.farShot);
+
+        turret.lazySusan.zeroEncoders();
     }
 
 

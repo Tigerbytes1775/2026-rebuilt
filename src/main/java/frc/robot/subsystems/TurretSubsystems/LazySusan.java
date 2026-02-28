@@ -55,6 +55,10 @@ public class LazySusan extends SubsystemBase {
         return encoder.getPosition() * gearRatio;
     }
 
+    public void zeroEncoders() {
+        encoder.setPosition(0);
+    }
+
     @Override
     public void periodic() {
         double percent = pidController.calculate(encoder.getPosition());
