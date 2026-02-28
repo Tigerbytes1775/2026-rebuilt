@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -17,22 +16,18 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.IntakePivotCommand;
-import frc.robot.commands.RampCommand;
-import frc.robot.commands.TurretTeleopCommand;
-import frc.robot.commands.VisionTeleopCommand;
-import frc.robot.commands.ClimbTeleopCommand;
-import frc.robot.commands.ClimbAutoCommand;
+import frc.robot.commands.Auto.ClimbAutoCommand;
+import frc.robot.commands.Teleop.ClimbTeleopCommand;
+import frc.robot.commands.Teleop.IntakeCommand;
+import frc.robot.commands.Teleop.IntakePivotCommand;
+import frc.robot.commands.Teleop.RampTeleopCommand;
+import frc.robot.commands.Teleop.TurretTeleopCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.IntakePivot;
 import frc.robot.subsystems.Ramp;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.LazySusan;
 import frc.robot.subsystems.TurretSubsystems.Turret;
@@ -96,7 +91,7 @@ public class RobotContainer {
     intake.setDefaultCommand(new IntakeCommand(intake, mechController));
     climb.setDefaultCommand(new ClimbTeleopCommand(climb, driverController) );
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
-    ramp.setDefaultCommand(new RampCommand(ramp, mechController));
+    ramp.setDefaultCommand(new RampTeleopCommand(ramp, mechController));
     turret.setDefaultCommand(new TurretTeleopCommand(turret, driverController));
     //vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
   }

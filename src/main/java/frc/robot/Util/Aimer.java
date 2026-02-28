@@ -27,16 +27,15 @@ public class Aimer {
 
     /**
      * returns information on how to aim a shot based of the parametres.
-     * returns an array formated as shown: {time,launchSpeed, turretAngle}
+     * returns an array formated as shown: {time, launchSpeed, turretAngle}
      */
     public double[] aimShot(double incline, double[] pos, double[] target, double[] robotVel) {
         boolean inaccurate = true;
         double time = 0;
-        double launchSpeed= 0;
+        double launchSpeed = 0;
         double angle = 0;
 
         while (inaccurate) {
-
 
             double[] difference = new double[3];
 
@@ -45,11 +44,14 @@ public class Aimer {
             }
 
             angle = getTurretAngle(difference);
+            //System.out.println("Angle: " + angle);
             double distance = getDistance(difference);
             launchSpeed = getLaunchSpeed(distance, difference[2], incline);
+            //System.out.println("Launch Speed: " + launchSpeed);
+
 
             time = getTime(launchSpeed, distance, incline);
-
+            //System.out.println("Time: " + time);
 
             inaccurate = !shooterSim.checkShot(launchSpeed, angle, incline, time, robotVel, pos, target);
 

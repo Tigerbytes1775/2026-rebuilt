@@ -1,9 +1,8 @@
-package frc.robot.commands;
+package frc.robot.commands.Teleop;
 
 import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Vision;
 
 public class VisionTeleopCommand extends Command{

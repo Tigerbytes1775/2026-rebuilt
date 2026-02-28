@@ -12,19 +12,30 @@ public class Climb extends SubsystemBase {
     
     private final SparkMax climbMotor = new SparkMax(33, SparkLowLevel.MotorType.kBrushless);
     private final RelativeEncoder encoder = climbMotor.getEncoder(); 
-
     private final double climbStrength = 1;
+    private double[] PIDvalues;
+
+    private final PIDController pidController; 
+        
+    public Climb() {
+
+        SmartDashboard.setPersistent("Climb PID"); 
+
+        if (SmartDashboard.getNumberArray("Climb PID", new double[0]).length == 0) {
+            SmartDashboard.putNumberArray("Climb PID", new double[]{0,0,0});
+        }
+        
+
+        PIDvalues = SmartDashboard.getNumberArray("Climb PID", new double[]{0,0,0});
 
 
-    private PIDController pidController =  new PIDController(
-            0.001,
-            0.0001,
-            0.0001
+        pidController =  new PIDController(
+            PIDvalues[0],
+            PIDvalues[1],
+            PIDvalues[2]
         );
-    
-    
-    public Climb() {}
-
+    }
+        
     public void setMotors(double percent) {
         double power = percent * climbStrength;  
     
@@ -42,8 +53,8 @@ public class Climb extends SubsystemBase {
     public void setTarget(double height) {
         pidController.setSetpoint(height);
         
-    }
-   
+    } 
+
 
     @Override
     public void periodic() {

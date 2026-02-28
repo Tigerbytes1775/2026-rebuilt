@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.util.Optional;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
@@ -25,7 +23,7 @@ public final class Constants {
 
   public static final double MAX_SPEED = Units.feetToMeters(10);
 
-
+  public static final double turretHeight = 0.22;
   public static boolean isBlue = false;
 
   static {
@@ -69,15 +67,15 @@ public final class Constants {
 
     static {
       if (isBlue) {
-        hub = new double[] {4.035,4.03,1.1938};
-        leftShot = new double[] {2,2,0};
-        rightShot = new double[] {6,2,0};
-        farShot = new double[] {4.035,2,0};
+        hub = new double[] {4.62,4.035,1.1938};
+        leftShot = new double[] {2.7,6,0};
+        rightShot = new double[] {2.7,2.07,0};
+        farShot = new double[] {2.7,4.035,0};
       } else {
-        hub = new double[] {4.035,4.03,1.1938};
-        leftShot = new double[] {2,2,0};
-        rightShot = new double[] {6,2,0};
-        farShot = new double[] {4.035,2,0};
+        hub = new double[] {11.9,4.035,1.1938};
+        leftShot = new double[] {13.5,2.07,0};
+        rightShot = new double[] {13.5,6,0};
+        farShot = new double[] {13.5,4.035,0};
       }
 
     }
