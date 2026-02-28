@@ -55,7 +55,7 @@ public class ShootingSimulator {
             if (getDistance(result, target) < marginOfError) {
                 return true;
             }
-            System.out.println(result);
+            //System.out.println(result);
             inAir = result[2] >= 0;
         }
 

@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.FieldObject2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Util.Aimer;
 import frc.robot.Util.ShootingSimulator;
 import frc.robot.subsystems.Ramp;
@@ -16,7 +15,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class Turret extends SubsystemBase{
 
 
-    private final double[] robotToTurret = {0,0,0.22};
+    private final double[] robotToTurret = {0,.23,0.36};
 
     //private final ShootingSimulator simulator = new ShootingSimulator();
     private final Aimer aimer = new Aimer();

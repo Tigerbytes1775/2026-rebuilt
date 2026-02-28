@@ -10,7 +10,6 @@ public class Ramp extends SubsystemBase {
     
     
     private final SparkMax ramp1 = new SparkMax(29, SparkLowLevel.MotorType.kBrushless);
-    private final SparkMax ramp2 = new SparkMax(30, SparkLowLevel.MotorType.kBrushless);
 
     private final double rampStrength = 0.5;
     
@@ -24,10 +23,8 @@ public class Ramp extends SubsystemBase {
 
         if (percent == 0){
             ramp1.stopMotor();
-            ramp2.stopMotor();
         } else {
             ramp1.set(power);
-            ramp2.set(power);
         }
         
     }
