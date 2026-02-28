@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "L to shootL"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shootL to Fuel"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "fuel to shootL"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shootL to climb"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

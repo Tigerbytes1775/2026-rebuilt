@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R to shootR"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shootR to Human"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Human to shootR"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shootR to Neutral"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

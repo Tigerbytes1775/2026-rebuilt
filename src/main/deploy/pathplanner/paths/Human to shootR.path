@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 0.44211126961880765,
+        "y": 0.6774179743172521
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 1.2383452268424833,
+        "y": 1.2921740775688266
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Human Player Fill"
     },
     {
       "anchor": {
-        "x": 3.909671897289586,
-        "y": 7.0
+        "x": 2.1,
+        "y": 2.1
       },
       "prevControl": {
-        "x": 2.909671897289586,
-        "y": 7.0
+        "x": 1.900493833385237,
+        "y": 1.9493438037029927
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "B ShootS"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 37.82881657755603
   },
   "reversed": false,
   "folder": null,

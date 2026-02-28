@@ -7,13 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Example Path"
+            "pathName": "L to shootL"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New Path"
+            "pathName": "shootL to Fuel"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "fuel to shootL"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "shootL to Neutral"
           }
         }
       ]
