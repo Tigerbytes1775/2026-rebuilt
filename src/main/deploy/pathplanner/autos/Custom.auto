@@ -7,25 +7,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "L to shootL"
+            "pathName": "MidR to shootR"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "shootL to Fuel"
+            "pathName": "shootR to Human"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "fuel to shootL"
+            "pathName": "Human to shootR"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "shootL to climb"
+            "pathName": "shootR to climb"
           }
         }
       ]

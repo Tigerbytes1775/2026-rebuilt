@@ -11,13 +11,21 @@ public class IntakePivot extends SubsystemBase {
     
     private final SparkMax intakePivotMotor = new SparkMax(28, SparkLowLevel.MotorType.kBrushless);
 
-    private final double intakeStrenght = 1.0;
     
     
-    public IntakePivot() {}
+    
+    public IntakePivot() {
+        SmartDashboard.setPersistent("Intake Pivot Strength");
+        if (SmartDashboard.getNumber("Intake Pivot Strength",0) == 0) {
+            SmartDashboard.putNumber("Intake Pivot Strength", 0.5);
+        }
+
+    }
 
     public void setMotors(double percent) {
-        double power = percent * intakeStrenght;
+
+        double strength = SmartDashboard.getNumber("Intake Pivot Strength", 0.5);
+        double power = percent * strength;
 
         SmartDashboard.putNumber("Intake Pivot power(%)", power);
 

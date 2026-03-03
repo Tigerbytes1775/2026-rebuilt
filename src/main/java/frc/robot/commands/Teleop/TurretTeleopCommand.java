@@ -3,6 +3,7 @@ package frc.robot.commands.Teleop;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.Turret;
 import frc.robot.Constants.Targets;
 public class TurretTeleopCommand extends Command {
@@ -36,17 +37,21 @@ public class TurretTeleopCommand extends Command {
     @Override
     public void execute() {
 
-        
+        Launch launch = turret.launch;
 
         boolean shooting = true;
         if (controller.getAButton()) {
-            turret.launch(Targets.hub);
+            //turret.launch(Targets.hub);
+            launch.setMotors(0.2);
         } else if (controller.getXButton()) {
-            turret.launch(Targets.leftShot);
+            //turret.launch(Targets.leftShot);
+            launch.setMotors(0.4);
         } else if (controller.getBButton()) {
-            turret.launch(Targets.rightShot);
+            //turret.launch(Targets.rightShot);
+            launch.setMotors(0.7);
         } else if (controller.getYButton()) {
-            turret.launch(customShot);
+            //turret.launch(customShot);
+            launch.setMotors(0.89);
         } else {
             turret.powerDownLaunch();
             shooting = false;  

@@ -56,14 +56,13 @@ public class LazySusan extends SubsystemBase {
     }
 
     public void zeroEncoders() {
-        encoder.setPosition(0);
+        encoder.setPosition(0.5);
     }
 
     @Override
     public void periodic() {
         double percent = pidController.calculate(encoder.getPosition());
         setMotors(percent);
-
        
         SmartDashboard.putNumber("Turret Rotation:(Radians)", getRotation());
         SmartDashboard.putNumber("Turret Rotation:(Degrees)", Math.toDegrees(getRotation()));

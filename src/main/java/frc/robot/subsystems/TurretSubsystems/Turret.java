@@ -56,7 +56,7 @@ public class Turret extends SubsystemBase{
         double[] shotInfo = aimer.aimShot(launch.incline, turretPos, target, robotVel);
         //System.out.println(shotInfo);
         double launchSpeed = shotInfo[1];
-        double angle = shotInfo[2] - pose.getRotation().getRadians();
+        double angle = shotInfo[2] - pose.getRotation().getRadians() + Math.PI;
 
 
         launch.setLaunchSpeed(launchSpeed);
@@ -93,6 +93,8 @@ public class Turret extends SubsystemBase{
         }
 
     }
+
+
 
     public void powerDownLaunch() {
         launch.setTargetRPM(0);
