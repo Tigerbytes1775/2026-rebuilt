@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LazySusan extends SubsystemBase {
 
-    private final double gearRatio = 36/200;
+    private final double gearRatio = 9.0/50.0;
 
     private final SparkFlex motor = new SparkFlex(34, MotorType.kBrushless);
     private final RelativeEncoder encoder = motor.getEncoder(); 
@@ -27,10 +27,10 @@ public class LazySusan extends SubsystemBase {
         SmartDashboard.setPersistent("Lazy Susan PID");
         
         if (SmartDashboard.getNumberArray("Lazy Susan PID", new double[0]).length == 0) {
-            SmartDashboard.putNumberArray("Lazy Susan PID", new double[]{0,0,0});
+            SmartDashboard.putNumberArray("Lazy Susan PID", new double[]{0.1,0,0});
         }
 
-        PIDvalues = SmartDashboard.getNumberArray("Lazy Susan PID", new double[]{0,0,0});
+        PIDvalues = SmartDashboard.getNumberArray("Lazy Susan PID", new double[]{0.1,0,0});
     
         pidController =  new PIDController(
             PIDvalues[0],
@@ -46,26 +46,33 @@ public class LazySusan extends SubsystemBase {
 
     public void setTarget(double angle) {
 
-        double target = angle /(2*Math.PI);
+        double target = angle /(2*Math.PI) / gearRatio;
+
         pidController.setSetpoint(target);
+        SmartDashboard.putNumber("Lazy Suzan Target Angle", Math.toDegrees(angle));
+        SmartDashboard.putNumber("Lazy Suzan Target Position",target);
         
     }
 
-    public double getRotation() {
-        return encoder.getPosition() * gearRatio;
+    public double getDegrees() {
+        return encoder.getPosition() * 360 * gearRatio;
     }
 
     public void zeroEncoders() {
-        encoder.setPosition(0.5);
+        encoder.setPosition(0);
     }
 
     @Override
     public void periodic() {
+
+        PIDvalues = SmartDashboard.getNumberArray("Lazy Susan PID", new double[]{0.1,0,0});
+
         double percent = pidController.calculate(encoder.getPosition());
         setMotors(percent);
        
-        SmartDashboard.putNumber("Turret Rotation:(Radians)", getRotation());
-        SmartDashboard.putNumber("Turret Rotation:(Degrees)", Math.toDegrees(getRotation()));
+        SmartDashboard.putNumber("Turret Rotation:(Radians)", Math.toRadians(getDegrees()));
+        SmartDashboard.putNumber("Turret Rotation:(Degrees)", getDegrees());
+        SmartDashboard.putNumber("Lazy Suzan Position:", encoder.getPosition());
 
 
     }

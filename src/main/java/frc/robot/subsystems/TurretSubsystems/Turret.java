@@ -56,7 +56,7 @@ public class Turret extends SubsystemBase{
         double[] shotInfo = aimer.aimShot(launch.incline, turretPos, target, robotVel);
         //System.out.println(shotInfo);
         double launchSpeed = shotInfo[1];
-        double angle = shotInfo[2] - pose.getRotation().getRadians() + Math.PI;
+        double angle = shotInfo[2] - pose.getRotation().getRadians();
 
 
         launch.setLaunchSpeed(launchSpeed);
@@ -85,7 +85,7 @@ public class Turret extends SubsystemBase{
         aim(target);
         
         double distanceToTarget = getDistance(target, turretPos);
-        boolean ready = sim.checkShot(launch.getLaunchSpeed(), lazySusan.getRotation() - robotRotation,launch.incline,robotVel,turretPos,target,acceptableMOE);
+        boolean ready = sim.checkShot(launch.getLaunchSpeed(), lazySusan.getDegrees() - robotRotation,launch.incline,robotVel,turretPos,target,acceptableMOE);
         if(distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance && ready) {
             ramp.setMotors(1);
         } else {

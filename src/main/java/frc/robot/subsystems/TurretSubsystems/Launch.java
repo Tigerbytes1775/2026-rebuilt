@@ -9,7 +9,9 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 public class Launch extends SubsystemBase {
+
 
     private final SparkFlex motor = new SparkFlex(32, MotorType.kBrushless);
     private final RelativeEncoder encoder = motor.getEncoder();
@@ -29,23 +31,29 @@ public class Launch extends SubsystemBase {
 
 
     private PIDController pidController;
+
+    private final double fValue;
     
 
     public Launch() {
+
+        
         
         SmartDashboard.setPersistent("Launch PID");
 
         if (SmartDashboard.getNumberArray("Launch PID", new double[0]).length == 0) {
-            SmartDashboard.putNumberArray("Launch PID", new double[]{0,0,0});
+            SmartDashboard.putNumberArray("Launch PID", new double[]{0,0,0,0});
         }
 
-        double[] PIDvalues = SmartDashboard.getNumberArray("Launch PID", new double[]{0,0,0});
+        double[] PIDvalues = SmartDashboard.getNumberArray("Launch PID", new double[]{0,0,0,0});
 
         pidController =  new PIDController(
             PIDvalues[0],
             PIDvalues[1],
             PIDvalues[2]
         );
+
+        fValue = PIDvalues[3];
     }
 
 
@@ -64,6 +72,8 @@ public class Launch extends SubsystemBase {
             enabled = true;
         }
         pidController.setSetpoint(rpm);
+
+        SmartDashboard.putNumber("Launch Target RPM", rpm);
       
     }
 
@@ -84,7 +94,10 @@ public class Launch extends SubsystemBase {
     public void periodic() {
         double power = 0;
         if (enabled) {
-            power = pidController.calculate(encoder.getVelocity());
+            power = pidController.calculate(encoder.getVelocity()) + fValue * pidController.getSetpoint();
+            if(power < 0) {
+                power = 0;
+            }
         }
 
         setMotors(power);
