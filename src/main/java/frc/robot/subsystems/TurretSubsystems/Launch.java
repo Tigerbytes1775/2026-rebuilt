@@ -18,7 +18,7 @@ public class Launch extends SubsystemBase {
     
     private boolean enabled = false;
 
-    public final double incline = Math.toRadians(75);
+    public final double incline = Math.toRadians(70);
 
     private final double launchWheelRadius = 2 * 0.0254;//  2 inches converted to meters
     private final double gearRatio = 1;
@@ -41,7 +41,7 @@ public class Launch extends SubsystemBase {
         
         SmartDashboard.setPersistent("Launch PID");
 
-        if (SmartDashboard.getNumberArray("Launch PID", new double[0]).length == 0) {
+        if (SmartDashboard.getNumberArray("Launch PID", new double[0]).length != 4) {
             SmartDashboard.putNumberArray("Launch PID", new double[]{0,0,0,0});
         }
 

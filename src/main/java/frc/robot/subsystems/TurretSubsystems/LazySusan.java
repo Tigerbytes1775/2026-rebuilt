@@ -40,6 +40,9 @@ public class LazySusan extends SubsystemBase {
     } 
     public void setMotors(double percent) {
         double power = strength * percent;
+        if (power > 1){
+            power = 1;
+        }
         motor.set(power);
         SmartDashboard.putNumber("Turret Rotation Power", power);
     }
