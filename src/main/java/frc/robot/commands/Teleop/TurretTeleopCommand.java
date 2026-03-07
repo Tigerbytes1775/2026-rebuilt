@@ -5,9 +5,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.Turret;
+import pabeles.concurrency.IntOperatorTask.Min;
 import frc.robot.Constants.Targets;
+import java.util.*;
 public class TurretTeleopCommand extends Command {
 
+
+    private List<Double> rmpList = new ArrayList<>();
     private double[] customShot;
     private final Turret turret;
     private final XboxController controller;
@@ -71,6 +75,16 @@ public class TurretTeleopCommand extends Command {
 
         //System.out.println(shooting);
         SmartDashboard.putBoolean("Shooting", shooting);
+
+        
+        if(controller.getLeftBumperButton()) {
+            rmpList.add(turret.launch.getRPM());
+        } 
+        if (controller.getRightBumperButton()) {
+            rmpList.clear();
+        }
+
+        SmartDashboard.putNumber("RPM Minimum", Collections.min(rmpList));
 
     }
     
