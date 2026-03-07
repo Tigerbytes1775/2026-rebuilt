@@ -45,18 +45,21 @@ public class Turret extends SubsystemBase{
     
 
     public void aim(double target[]) {
-        //System.out.println("Aiming Started");
         Pose2d pose = swerve.getPose();
+
+        double robotAngle = pose.getRotation().getRadians();
+        //System.out.println("Aiming Started");
+        
         ChassisSpeeds chassisSpeed = swerve.getRobotVelocity();
         double[] robotPos = {pose.getX(), pose.getY(),0};
-        double[] turretPos = {robotPos[0] + robotToTurret[0], robotPos[1] + robotToTurret[1], robotPos[2] + robotToTurret[2]};
+        double[] turretPos = {robotPos[0] + robotToTurret[0] * Math.cos(robotAngle), robotPos[1] + robotToTurret[1] * Math.sin(robotAngle), robotPos[2] + robotToTurret[2]};
         double[] robotVel = {chassisSpeed.vxMetersPerSecond, chassisSpeed.vyMetersPerSecond, 0};
 
         //System.out.println("Getting Shot Info");
         double[] shotInfo = aimer.aimShot(launch.incline, turretPos, target, robotVel);
         //System.out.println(shotInfo);
         double launchSpeed = shotInfo[1];
-        double angle = shotInfo[2] - pose.getRotation().getRadians();
+        double angle = shotInfo[2] - robotAngle;
 
 
         launch.setLaunchSpeed(launchSpeed);
