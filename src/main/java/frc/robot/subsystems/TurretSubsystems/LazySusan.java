@@ -49,16 +49,18 @@ public class LazySusan extends SubsystemBase {
 
     public void setTarget(double angle) {
 
-        double target = angle /(2*Math.PI) / gearRatio;
+        double processedAngle = (angle + Math.PI) % (2*Math.PI);
+
+        double target = processedAngle /(2*Math.PI) / gearRatio;
 
         pidController.setSetpoint(target);
-        SmartDashboard.putNumber("Lazy Suzan Target Angle", Math.toDegrees(angle));
-        SmartDashboard.putNumber("Lazy Suzan Target Position",target);
+        SmartDashboard.putNumber("Lazy Suzan Target Angle", (Math.toDegrees(angle) + 180) % 360);
+        SmartDashboard.putNumber("Lazy Suzan Target Position", target);
         
     }
 
-    public double getDegrees() {
-        return encoder.getPosition() * 360 * gearRatio;
+    public double getAngle() {
+        return encoder.getPosition() * 2*Math.PI * gearRatio;
     }
 
     public void zeroEncoders() {
@@ -73,8 +75,8 @@ public class LazySusan extends SubsystemBase {
         double percent = pidController.calculate(encoder.getPosition());
         setMotors(percent);
        
-        SmartDashboard.putNumber("Turret Rotation:(Radians)", Math.toRadians(getDegrees()));
-        SmartDashboard.putNumber("Turret Rotation:(Degrees)", getDegrees());
+        SmartDashboard.putNumber("Turret Rotation:(Radians)", getAngle());
+        SmartDashboard.putNumber("Turret Rotation:(Degrees)", Math.toDegrees(getAngle()));
         SmartDashboard.putNumber("Lazy Suzan Position:", encoder.getPosition());
 
 

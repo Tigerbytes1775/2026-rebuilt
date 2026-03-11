@@ -51,7 +51,7 @@ public class ShootingSimulator {
         while(inAir) {
 
             double[] result = simShot(launchSpeed, angle, incline, time, robotVel, robotPos);
-            time += 0.1;
+            time += 0.01;
             if (getDistance(result, target) < marginOfError) {
                 return true;
             }

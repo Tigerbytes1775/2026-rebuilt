@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.Turret;
-import pabeles.concurrency.IntOperatorTask.Min;
 import frc.robot.Constants.Targets;
 import java.util.*;
 public class TurretTeleopCommand extends Command {
@@ -46,17 +45,17 @@ public class TurretTeleopCommand extends Command {
 
         boolean shooting = true;
         if (controller.getAButton()) {
-            //turret.launch(Targets.hub);
-            launch.setTargetRPM(3000);
-        } else if (controller.getXButton()) {
-            //turret.launch(Targets.leftShot);
-            launch.setTargetRPM(3500);
+            turret.launch(Targets.hub);
+            //launch.setTargetRPM(2250);
         } else if (controller.getBButton()) {
-            //turret.launch(Targets.rightShot);
-            launch.setTargetRPM(4500);
+            turret.launch(Targets.leftShot);
+            //launch.setTargetRPM(2750);
+        } else if (controller.getXButton()) {
+            turret.launch(Targets.rightShot);
+            //launch.setTargetRPM(3250);
         } else if (controller.getYButton()) {
-            //turret.launch(customShot);
-            launch.setTargetRPM(5000);
+            turret.launch(customShot);
+            //launch.setTargetRPM(3750);
         } else {
             turret.powerDownLaunch();
             shooting = false;  
@@ -64,7 +63,7 @@ public class TurretTeleopCommand extends Command {
 
         double y = controller.getLeftY();
         double x = controller.getLeftX();
-        double angle = Math.atan2(y,x ) - Math.PI/2;
+        double angle = Math.atan2(y,x) - Math.PI/2;
         if (angle < 0) {
             angle += 2 * Math.PI;
         }
@@ -83,8 +82,12 @@ public class TurretTeleopCommand extends Command {
         if (controller.getRightBumperButton()) {
             rmpList.clear();
         }
-
-        SmartDashboard.putNumber("RPM Minimum", Collections.min(rmpList));
+        try {
+            SmartDashboard.putNumber("RPM Minimum", Collections.min(rmpList));
+        } catch(Exception e) {
+            SmartDashboard.putNumber("RPM Minimum", 0);
+        }
+       
 
     }
     

@@ -18,9 +18,11 @@ public class Launch extends SubsystemBase {
     
     private boolean enabled = false;
 
+
+
     public final double incline = Math.toRadians(70);
 
-    private final double launchWheelRadius = 2 * 0.0254;//  2 inches converted to meters
+    private final double launchWheelRadius = 1.25 * 0.0254;//  2 inches converted to meters
     private final double gearRatio = 1;
 
     //private final double launchKvRating = 505.44;// rpm/voltage 
@@ -33,6 +35,8 @@ public class Launch extends SubsystemBase {
     private PIDController pidController;
 
     private final double fValue;
+
+
     
 
     public Launch() {
@@ -78,16 +82,28 @@ public class Launch extends SubsystemBase {
     }
 
     public void setLaunchSpeed(double mps) {
-        double rpm = mps * mpsToRpm;
-        setTargetRPM(rpm);
+        double targetMinRpm = mps * mpsToRpm;
+        setTargetRPM(finalToCurrentRpm(targetMinRpm));
     }
 
     public double getRPM() {
         return encoder.getVelocity();
     }
 
+    public double currentToFinalRpm(double rpm) {
+        double slope = 0.6032;
+        double yInt =  336.0;
+        return slope * rpm + yInt;
+    }
+
+    public double finalToCurrentRpm(double rpm) {
+        double slope = 1 / 0.6032;
+        double yInt = -336.0 / 0.6423;
+        return slope *rpm + yInt;
+    }
+
     public double getLaunchSpeed() {
-        return getRPM() * rpmToMps;
+        return currentToFinalRpm(getRPM()) * rpmToMps;
     }
 
     @Override
@@ -102,7 +118,7 @@ public class Launch extends SubsystemBase {
 
         setMotors(power);
         SmartDashboard.putNumber("Launch RPM", getRPM());
-        SmartDashboard.putNumber("Launch Speed", getRPM() * rpmToMps);
+        SmartDashboard.putNumber("Launch Speed", getLaunchSpeed());
     }
 
     

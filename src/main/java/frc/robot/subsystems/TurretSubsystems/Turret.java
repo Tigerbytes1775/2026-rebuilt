@@ -15,7 +15,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class Turret extends SubsystemBase{
 
 
-    private final double[] robotToTurret = {0,.23,0.36};
+    private final double[] robotToTurret = {0,0,0};
 
     //private final ShootingSimulator simulator = new ShootingSimulator();
     private final Aimer aimer = new Aimer();
@@ -27,7 +27,7 @@ public class Turret extends SubsystemBase{
     private final Field2d field = new Field2d();
     private final FieldObject2d targetMarker = field.getObject("Target Marker");
 
-    private final double acceptableMOE = 0.2;//MOE is margin of error
+    private final double acceptableMOE = 1;//MOE is margin of error
 
     public final Launch launch;
     public final Ramp ramp;
@@ -52,14 +52,14 @@ public class Turret extends SubsystemBase{
         
         ChassisSpeeds chassisSpeed = swerve.getRobotVelocity();
         double[] robotPos = {pose.getX(), pose.getY(),0};
-        double[] turretPos = {robotPos[0] + robotToTurret[0] * Math.cos(robotAngle), robotPos[1] + robotToTurret[1] * Math.sin(robotAngle), robotPos[2] + robotToTurret[2]};
+        double[] turretPos = {robotPos[0] + robotToTurret[0] * Math.cos(robotAngle), robotPos[1] + robotToTurret[1] * Math.sin(robotAngle), robotToTurret[2]};
         double[] robotVel = {chassisSpeed.vxMetersPerSecond, chassisSpeed.vyMetersPerSecond, 0};
 
         //System.out.println("Getting Shot Info");
         double[] shotInfo = aimer.aimShot(launch.incline, turretPos, target, robotVel);
         //System.out.println(shotInfo);
         double launchSpeed = shotInfo[1];
-        double angle = shotInfo[2] - robotAngle;
+        double angle = robotAngle - shotInfo[2];
 
 
         launch.setLaunchSpeed(launchSpeed);
@@ -82,13 +82,20 @@ public class Turret extends SubsystemBase{
         double robotRotation = swerve.getPose().getRotation().getRadians();
 
         double[] robotPos = {swerve.getPose().getX(), swerve.getPose().getY(),0};
-        double[] turretPos = {robotPos[0] + robotToTurret[0], robotPos[1] + robotToTurret[1], robotPos[2] + robotToTurret[2]};
+        double[] turretPos = {robotPos[0] + robotToTurret[0], robotPos[1] + robotToTurret[1],  robotToTurret[2]};
         double[] robotVel = {swerve.getRobotVelocity().vxMetersPerSecond,swerve.getRobotVelocity().vyMetersPerSecond};
 
         aim(target);
+
+        double angle = Math.PI -lazySusan.getAngle() + robotRotation;
+        if (angle < 0) {
+            angle += 2* Math.PI;
+        }
+
+        SmartDashboard.putNumber("Adjusted Turrent Angle", Math.toDegrees(angle- robotRotation));
         
         double distanceToTarget = getDistance(target, turretPos);
-        boolean ready = sim.checkShot(launch.getLaunchSpeed(), lazySusan.getDegrees() - robotRotation,launch.incline,robotVel,turretPos,target,acceptableMOE);
+        boolean ready = sim.checkShot(launch.getLaunchSpeed(), angle ,launch.incline,robotVel,turretPos,target,acceptableMOE);
         if(distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance && ready) {
             ramp.setMotors(1);
         } else {
