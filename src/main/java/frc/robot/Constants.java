@@ -26,13 +26,9 @@ public final class Constants {
   public static final double turretHeight = 0.22;
   public static boolean isBlue = true;
 
-  //static {
-  //  DriverStation.getAlliance().ifPresent(
-  //    alliance -> {
-  //      isBlue = alliance == Alliance.Blue;
-  //    }
-  //  );
-  //}
+  static {
+    isBlue = DriverStation.getAlliance().get() == Alliance.Blue;
+  }
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
