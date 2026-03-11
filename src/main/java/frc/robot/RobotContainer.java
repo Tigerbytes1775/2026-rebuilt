@@ -16,12 +16,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.Vision;
 import frc.robot.commands.Auto.ClimbAutoCommand;
 import frc.robot.commands.Teleop.ClimbTeleopCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
 import frc.robot.commands.Teleop.IntakePivotCommand;
 import frc.robot.commands.Teleop.RampTeleopCommand;
 import frc.robot.commands.Teleop.TurretTeleopCommand;
+import frc.robot.commands.Teleop.VisionTeleopCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Climb;
@@ -55,7 +57,7 @@ public class RobotContainer {
   private final Ramp ramp = new Ramp();
   private final Launch launch = new Launch();
   private final LazySusan lazySusan = new LazySusan();
-  //private final Vision vision = new Vision(swerveDrive);
+  private final Vision vision = new Vision(swerveDrive);
 
 
   private final Climb climb = new Climb();
@@ -93,7 +95,7 @@ public class RobotContainer {
     intakePivot.setDefaultCommand(new IntakePivotCommand(intakePivot, mechController));
     ramp.setDefaultCommand(new RampTeleopCommand(ramp, mechController));
     turret.setDefaultCommand(new TurretTeleopCommand(turret, mechController));
-    //vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
+    vision.setDefaultCommand(new VisionTeleopCommand(vision, () -> mechController.getPOV() == 270));
   }
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the

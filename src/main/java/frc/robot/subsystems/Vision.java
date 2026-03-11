@@ -57,18 +57,23 @@ public class Vision extends SubsystemBase {
 
     public boolean visionEnabled = true;
 
+    //cam1, Back
     private final Transform3d robotToCam1 = new Transform3d(
-        new Translation3d(0.22225, -0.1635125, 0.254),
-        new Rotation3d(0, 0, 0)
+        new Translation3d(-0.0460375, -0.333375, 0.2413),
+        new Rotation3d(Math.PI/2, Math.PI,0)
     );
 
+    //cam2, Left
     private final Transform3d robotToCam2 = new Transform3d(
-        new Translation3d(-0.2032, 0.295275, 0.254),
-        new Rotation3d(0, 0, Math.PI)
+        new Translation3d(-0.327025, 0.10795, 0.2159),
+        new Rotation3d(Math.toRadians(-63), 0, Math.PI/2)
     );
 
-    private final PhotonCamera cam1 = new PhotonCamera("cam1");
-    private final PhotonCamera cam2 = new PhotonCamera("cam2");
+    //cam3, Right
+    private final Transform3d robotToCam3 = new Transform3d(
+        new Translation3d(0.327025, 0.092075, 0.206375),
+        new Rotation3d(-Math.PI/4, 0, Math.PI/2)
+    );
 
     private final PhotonPoseEstimator photonEstimator1 =
         new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToCam1);
@@ -76,8 +81,11 @@ public class Vision extends SubsystemBase {
     private final PhotonPoseEstimator photonEstimator2 =
         new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToCam2);
 
-    private final PhotonCamera[] cams = { cam2, cam1 };
-    private final PhotonPoseEstimator[] photonEstimators = { photonEstimator2, photonEstimator1 };
+    private final PhotonPoseEstimator photonEstimator3 =
+        new PhotonPoseEstimator(kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, robotToCam3);
+
+    private final PhotonCamera[] cams = {new PhotonCamera("Cam1"),new PhotonCamera("Cam2"), new PhotonCamera("Cam3")};
+    private final PhotonPoseEstimator[] photonEstimators = {photonEstimator1, photonEstimator2, photonEstimator3};
 
     private Matrix<N3, N1> curStdDevs;
 
@@ -103,7 +111,7 @@ public class Vision extends SubsystemBase {
             cameraProp.setAvgLatencyMs(50);
             cameraProp.setLatencyStdDevMs(15);
 
-            cameraSim = new PhotonCameraSim(cam1, cameraProp);
+            cameraSim = new PhotonCameraSim(cams[0], cameraProp);
             visionSim.addCamera(cameraSim, robotToCam1);
             cameraSim.enableDrawWireframe(true);
         }
@@ -189,6 +197,7 @@ public class Vision extends SubsystemBase {
 
         curStdDevs = estStdDevs;
     }
+
 
     public Matrix<N3, N1> getEstimationStdDevs() {
         return curStdDevs;
