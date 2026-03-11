@@ -27,7 +27,7 @@ public class Turret extends SubsystemBase{
     private final Field2d field = new Field2d();
     private final FieldObject2d targetMarker = field.getObject("Target Marker");
 
-    private final double acceptableMOE = 1;//MOE is margin of error
+    private final double acceptableMOE = 0.1;//MOE is margin of error
 
     public final Launch launch;
     public final Ramp ramp;
@@ -92,11 +92,12 @@ public class Turret extends SubsystemBase{
             angle += 2* Math.PI;
         }
 
-        SmartDashboard.putNumber("Adjusted Turrent Angle", Math.toDegrees(angle- robotRotation));
+        SmartDashboard.putNumber("Adjusted Turrent Angle", Math.toDegrees(angle));
         
         double distanceToTarget = getDistance(target, turretPos);
+        boolean goodDistance = distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance;
         boolean ready = sim.checkShot(launch.getLaunchSpeed(), angle ,launch.incline,robotVel,turretPos,target,acceptableMOE);
-        if(distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance && ready) {
+        if(ready) {
             ramp.setMotors(1);
         } else {
             ramp.setMotors(0);
