@@ -58,6 +58,7 @@ public class TurretTeleopCommand extends Command {
             //launch.setTargetRPM(3750);
         } else {
             turret.powerDownLaunch();
+            turret.ramp.setMotors(0);
             shooting = false;  
         }
 
@@ -76,17 +77,17 @@ public class TurretTeleopCommand extends Command {
         SmartDashboard.putBoolean("Shooting", shooting);
 
         
-        if(controller.getLeftBumperButton()) {
-            rmpList.add(turret.launch.getRPM());
-        } 
-        if (controller.getRightBumperButton()) {
-            rmpList.clear();
-        }
-        try {
-            SmartDashboard.putNumber("RPM Minimum", Collections.min(rmpList));
-        } catch(Exception e) {
-            SmartDashboard.putNumber("RPM Minimum", 0);
-        }
+        //if(controller.getLeftBumperButton()) {
+        //    rmpList.add(turret.launch.getRPM());
+        //} 
+        //if (controller.getRightBumperButton()) {
+        //    rmpList.clear();
+        //}
+        //try {
+        //    SmartDashboard.putNumber("RPM Minimum", Collections.min(rmpList));
+        //} catch(Exception e) {
+        //    SmartDashboard.putNumber("RPM Minimum", 0);
+        //}
        
 
     }

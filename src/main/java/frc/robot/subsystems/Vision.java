@@ -57,22 +57,22 @@ public class Vision extends SubsystemBase {
 
     public boolean visionEnabled = true;
 
-    //cam1, Back
-    private final Transform3d robotToCam1 = new Transform3d(
-        new Translation3d(-0.0460375, -0.333375, 0.2413),
-        new Rotation3d(-Math.PI/2, 0, Math.PI)
+    //cam2, Back
+    private final Transform3d robotToCam2 = new Transform3d(
+        new Translation3d(-0.333375, -0.0460375, 0.2413),
+        new Rotation3d(Math.PI/2, 0, Math.PI)
     );
 
-    //cam2, Left
-    private final Transform3d robotToCam2 = new Transform3d(
-        new Translation3d(-0.327025, 0.10795, 0.2159),
-        new Rotation3d(Math.toRadians(-63), 0, Math.PI/2)
+    //cam1, Left
+    private final Transform3d robotToCam1 = new Transform3d(
+        new Translation3d(0.10795, -0.327025, 0.2159),
+        new Rotation3d(Math.toRadians(-63), 0, -Math.PI/2)
     );
 
     //cam3, Right
     private final Transform3d robotToCam3 = new Transform3d(
-        new Translation3d(0.327025, 0.092075, 0.206375),
-        new Rotation3d(-Math.PI/4, 0, Math.PI/2)
+        new Translation3d(0.092075, 0.327025, 0.206375),
+        new Rotation3d(-Math.PI/4, 0, -Math.PI/2)
     );
 
     private final PhotonPoseEstimator photonEstimator1 =

@@ -14,8 +14,8 @@ import frc.robot.subsystems.SwerveSubsystem;
 
 public class Turret extends SubsystemBase{
 
-
-    private final double[] robotToTurret = {0,0,0};
+    // y  was 0.3429
+    private final double[] robotToTurret = {0.1651,0.0,0.4064}; //x and y distance from center of robot to center of turret, and height of turret
 
     //private final ShootingSimulator simulator = new ShootingSimulator();
     private final Aimer aimer = new Aimer();
@@ -27,7 +27,7 @@ public class Turret extends SubsystemBase{
     private final Field2d field = new Field2d();
     private final FieldObject2d targetMarker = field.getObject("Target Marker");
 
-    private final double acceptableMOE = 0.1;//MOE is margin of error
+    private final double acceptableMOE = 0.5 ;//MOE is margin of error
 
     public final Launch launch;
     public final Ramp ramp;
@@ -59,11 +59,25 @@ public class Turret extends SubsystemBase{
         double[] shotInfo = aimer.aimShot(launch.incline, turretPos, target, robotVel);
         //System.out.println(shotInfo);
         double launchSpeed = shotInfo[1];
-        double angle = robotAngle - shotInfo[2];
+        double angle = Math.PI + robotAngle + shotInfo[2];
 
 
         launch.setLaunchSpeed(launchSpeed);
         lazySusan.setTarget(angle);
+    }
+
+
+    public double[] getTurretPos() {
+        double robotRotation = swerve.getPose().getRotation().getRadians();
+        double[] robotPos = {swerve.getPose().getX(), swerve.getPose().getY(),0};
+
+        double[] turretPos = {
+            robotPos[0] + robotToTurret[0] * Math.cos(robotRotation),
+            robotPos[1] + robotToTurret[1] * Math.cos(robotRotation),
+            robotToTurret[2]
+        };
+        
+        return turretPos;
     }
 
     private double getDistance(double[] a, double[] b) {
@@ -79,26 +93,25 @@ public class Turret extends SubsystemBase{
         SmartDashboard.putNumberArray("Turret Target", target);
         SmartDashboard.putData("Field", field);
 
-        double robotRotation = swerve.getPose().getRotation().getRadians();
-
-        double[] robotPos = {swerve.getPose().getX(), swerve.getPose().getY(),0};
-        double[] turretPos = {robotPos[0] + robotToTurret[0], robotPos[1] + robotToTurret[1],  robotToTurret[2]};
         double[] robotVel = {swerve.getRobotVelocity().vxMetersPerSecond,swerve.getRobotVelocity().vyMetersPerSecond};
 
         aim(target);
 
-        double angle = Math.PI -lazySusan.getAngle() + robotRotation;
+        double robotRotation = swerve.getPose().getRotation().getRadians();
+
+        double angle = 2*Math.PI - robotRotation+lazySusan.getAngle();
         if (angle < 0) {
             angle += 2* Math.PI;
         }
 
-        SmartDashboard.putNumber("Adjusted Turrent Angle", Math.toDegrees(angle));
+        SmartDashboard.putNumber("Global Turrent Angle", Math.toDegrees(angle));
         
-        double distanceToTarget = getDistance(target, turretPos);
-        boolean goodDistance = distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance;
-        boolean ready = sim.checkShot(launch.getLaunchSpeed(), angle ,launch.incline,robotVel,turretPos,target,acceptableMOE);
+        //double distanceToTarget = getDistance(target, getTurretPos());
+        //boolean goodDistance = distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance;
+        boolean ready = sim.checkShot(launch.getLaunchSpeed(), angle ,launch.incline,robotVel,getTurretPos(),target,acceptableMOE);
+
         if(ready) {
-            ramp.setMotors(1);
+            ramp.setMotors(0.5);
         } else {
             ramp.setMotors(0);
         }

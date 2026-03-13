@@ -29,16 +29,25 @@ public class ClimbTeleopCommand extends Command{
 
     @Override
     public void execute(){
-        if (controller.getLeftBumperButton()){
-            climb.setTarget(0); //go to bottom
-        } else if (controller.getRightBumperButton()){
-            climb.setTarget(target); //go to top
+        //if (controller.getLeftBumperButton()){
+        //    climb.setTarget(0); //go to bottom
+        //} else if (controller.getRightBumperButton()){
+        //    climb.setTarget(target); //go to top
+        //}
+        if (controller.getRightBumperButton()) {
+            climb.setMotors(-0.1);
+        } else {
+            climb.setMotors(controller.getRightTriggerAxis());
         }
+        
     }
+
 
     @Override
     public void end(boolean interrupted) {
        climb.setMotors(0);
     }
+
+     
     
 }
