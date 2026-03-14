@@ -27,7 +27,7 @@ public class Turret extends SubsystemBase{
     private final Field2d field = new Field2d();
     private final FieldObject2d targetMarker = field.getObject("Target Marker");
 
-    private final double acceptableMOE = 0.5 ;//MOE is margin of error
+    private final double acceptableMOE = 0.1 ;//MOE is margin of error
 
     public final Launch launch;
     public final Ramp ramp;
@@ -51,12 +51,10 @@ public class Turret extends SubsystemBase{
         //System.out.println("Aiming Started");
         
         ChassisSpeeds chassisSpeed = swerve.getRobotVelocity();
-        double[] robotPos = {pose.getX(), pose.getY(),0};
-        double[] turretPos = {robotPos[0] + robotToTurret[0] * Math.cos(robotAngle), robotPos[1] + robotToTurret[1] * Math.sin(robotAngle), robotToTurret[2]};
         double[] robotVel = {chassisSpeed.vxMetersPerSecond, chassisSpeed.vyMetersPerSecond, 0};
 
         //System.out.println("Getting Shot Info");
-        double[] shotInfo = aimer.aimShot(launch.incline, turretPos, target, robotVel);
+        double[] shotInfo = aimer.aimShot(launch.incline, getTurretPos(), target, robotVel);
         //System.out.println(shotInfo);
         double launchSpeed = shotInfo[1];
         double angle = Math.PI + robotAngle + shotInfo[2];
@@ -73,7 +71,7 @@ public class Turret extends SubsystemBase{
 
         double[] turretPos = {
             robotPos[0] + robotToTurret[0] * Math.cos(robotRotation),
-            robotPos[1] + robotToTurret[1] * Math.cos(robotRotation),
+            robotPos[1] + robotToTurret[1] * Math.sin(robotRotation),
             robotToTurret[2]
         };
         
