@@ -21,9 +21,9 @@ public class RampTeleopCommand extends Command{
     public void execute(){
 
         if (controller.getRightTriggerAxis() >= 0.1) {
-            //ramp.setMotors(1);
+            ramp.setMotors(1);
         } else { 
-            //ramp.setMotors(0);
+            ramp.setMotors(0);
         }
     }
 

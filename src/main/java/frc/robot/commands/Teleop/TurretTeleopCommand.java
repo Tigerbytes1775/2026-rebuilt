@@ -55,8 +55,11 @@ public class TurretTeleopCommand extends Command {
             //launch.setTargetRPM(3250);
         } else if (controller.getYButton()) {
             turret.launch(customShot);
-            //launch.setTargetRPM(3750);
-        } else {
+            //launch.setTargetRPM(3750);{
+        } else if (controller.getPOV() != -1) {
+            launch.setTargetRPM(launch.finalToCurrentRpm(2250));
+        
+        } else{
             turret.powerDownLaunch();
             turret.ramp.setMotors(0);
             shooting = false;  

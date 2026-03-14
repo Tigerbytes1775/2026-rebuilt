@@ -119,14 +119,6 @@ public class RobotContainer {
       .allianceRelativeControl(true);
 
 
-      
-    //SwerveInputStream driveDirectAngle = driveAngularVelocity.copy()
-    //  .withControllerHeadingAxis(driverController::getRightX,
-    //      driverController::getRightY)
-    //  .headingWhile(false);
-    //// affects the things
-    //Command driveFieldOrientedDirectAngle = swerveSubsystem.driveFieldOriented(driveDirectAngle);
-
     Command DriveFieldOrientedAngularVelocity = swerveSubsystem.driveFieldOriented(
       driveAngularVelocity, 
       () -> driverController.getPOV() != -1
