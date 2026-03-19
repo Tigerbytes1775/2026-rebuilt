@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "name": "/SmartDashboard/Lazy Susan PID",
+    "type": "double[]",
+    "value": [0.1, 0.0, 0.0],
+    "properties": {
+      "persistent": true
+    }
+  }
+]

@@ -27,12 +27,13 @@ public class Turret extends SubsystemBase{
     private final Field2d field = new Field2d();
     private final FieldObject2d targetMarker = field.getObject("Target Marker");
 
-    private final double acceptableMOE = 0.1 ;//MOE is margin of error
+    private final double moe = 0.2;
 
     public final Launch launch;
     public final Ramp ramp;
     public final LazySusan lazySusan;
-    private final SwerveSubsystem swerve;
+    public final SwerveSubsystem swerve;
+    private boolean wasReady = false;
 
     public Turret(Launch launch, LazySusan lazySusan, Ramp ramp, SwerveSubsystem swerve) {
         this.launch = launch;
@@ -45,9 +46,9 @@ public class Turret extends SubsystemBase{
     
 
     public void aim(double target[]) {
-        Pose2d pose = swerve.getPose();
+        
 
-        double robotAngle = pose.getRotation().getRadians();
+       
         //System.out.println("Aiming Started");
         
         ChassisSpeeds chassisSpeed = swerve.getRobotVelocity();
@@ -56,12 +57,10 @@ public class Turret extends SubsystemBase{
         //System.out.println("Getting Shot Info");
         double[] shotInfo = aimer.aimShot(launch.incline, getTurretPos(), target, robotVel);
         //System.out.println(shotInfo);
-        double launchSpeed = shotInfo[1];
-        double angle = Math.PI + robotAngle + shotInfo[2];
 
-
-        launch.setLaunchSpeed(launchSpeed);
-        lazySusan.setTarget(angle);
+        launch.setLaunchSpeed(shotInfo[1]);
+        setGlobalAngle(2*Math.PI-shotInfo[2]);
+       
     }
 
 
@@ -95,31 +94,66 @@ public class Turret extends SubsystemBase{
 
         aim(target);
 
-        double robotRotation = swerve.getPose().getRotation().getRadians();
-
-        double angle = 2*Math.PI - robotRotation+lazySusan.getAngle();
-        if (angle < 0) {
-            angle += 2* Math.PI;
-        }
-
-        SmartDashboard.putNumber("Global Turrent Angle", Math.toDegrees(angle));
-        
-        //double distanceToTarget = getDistance(target, getTurretPos());
+        double distanceToTarget = getDistance(target, getTurretPos());
         //boolean goodDistance = distanceToTarget >= minShootDistance && distanceToTarget <= maxShootDistance;
-        boolean ready = sim.checkShot(launch.getLaunchSpeed(), angle ,launch.incline,robotVel,getTurretPos(),target,acceptableMOE);
+        boolean ready = sim.checkShot(launch.getLaunchSpeed(), 2*Math.PI - getGlobalAngle() ,launch.incline,robotVel,getTurretPos(),target, moe);
 
         if(ready) {
-            ramp.setMotors(0.5);
+            SmartDashboard.putBoolean("Shoot Success", true);
+            ramp.setMotors(1);
+            wasReady = true;
         } else {
-            ramp.setMotors(0);
+            SmartDashboard.putBoolean("Shoot Success", false);
+            if (wasReady) {
+                wasReady = false;
+                ramp.setMotors(0);
+            }
+            
         }
 
     }
 
 
+    public void setGlobalAngle(double globalAngleTarget) {
+
+        
+
+        double robotAngle = swerve.getPose().getRotation().getRadians();
+        double targetAngle = robotAngle + globalAngleTarget;
+
+        while(targetAngle < 0) {
+            targetAngle += 2* Math.PI;
+        }
+
+        targetAngle %= 2*Math.PI;
+
+        lazySusan.setTarget(targetAngle);
+
+    }
+
+    public double getGlobalAngle() {
+        double robotAngle = swerve.getPose().getRotation().getRadians();
+        double susanAngle = lazySusan.getAngle();
+
+        double globalAngle = susanAngle - robotAngle;
+        
+
+        while (globalAngle < 0) {
+            globalAngle += 2*Math.PI;
+        }
+        globalAngle %= 2*Math.PI;
+
+        return globalAngle;
+    }
+
 
     public void powerDownLaunch() {
         launch.setTargetRPM(0);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Global Turret Angle", Math.toDegrees(getGlobalAngle()));
     }
 
 }

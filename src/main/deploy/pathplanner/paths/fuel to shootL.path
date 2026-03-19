@@ -12,7 +12,7 @@
         "y": 5.97
       },
       "isLocked": false,
-      "linkedName": "B fuel"
+      "linkedName": "new fue"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -179.96582571800906
   },
   "useDefaultConstraints": true
 }

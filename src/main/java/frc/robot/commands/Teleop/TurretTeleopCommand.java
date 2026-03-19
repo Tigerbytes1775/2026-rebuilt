@@ -3,9 +3,13 @@ package frc.robot.commands.Teleop;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.TurretSubsystems.Launch;
 import frc.robot.subsystems.TurretSubsystems.Turret;
+import frc.robot.Constants;
 import frc.robot.Constants.Targets;
+
+import java.lang.annotation.Target;
 import java.util.*;
 public class TurretTeleopCommand extends Command {
 
@@ -44,6 +48,7 @@ public class TurretTeleopCommand extends Command {
         Launch launch = turret.launch;
 
         boolean shooting = true;
+
         if (controller.getAButton()) {
             turret.launch(Targets.hub);
             //launch.setTargetRPM(2250);
@@ -56,30 +61,56 @@ public class TurretTeleopCommand extends Command {
         } else if (controller.getYButton()) {
             turret.launch(customShot);
             //launch.setTargetRPM(3750);{
-        } else if (controller.getPOV() != -1) {
-            launch.setTargetRPM(launch.finalToCurrentRpm(2250));
-        
-        } else{
+        } else {
+
             turret.powerDownLaunch();
-            turret.ramp.setMotors(0);
             shooting = false;  
+            turret.ramp.setMotors(0);
+
+            if (controller.getPOV() != -1) {
+                if (controller.getPOV() == 0) {
+                    launch.setMotors(1);
+                } else {
+                    launch.setTargetRPM(launch.finalToCurrentRpm(2250));
+
+                }
+                
+            } 
+                //turret.setGlobalAngle(Math.atan2(Targets.hub[1],Targets.hub[0]));
+                
+            
+
+            double y = controller.getRightY();
+            double x = controller.getRightX();
+           
+
+            if (Math.sqrt(x*x + y*y) >= 0.5) {
+
+                double angle = Math.atan2(x,-y) - Math.PI;
+                
+                while (angle < 0) {
+                    angle += Math.PI*2;
+                }
+
+                if(!Constants.isBlue) {
+                    angle += Math.PI;
+                }
+
+                angle %= 2*Math.PI;
+
+
+                //SmartDashboard.putBoolean("Manual Lazy Susan", true);
+                turret.setGlobalAngle(angle);
+            }
         }
 
-        double y = controller.getLeftY();
-        double x = controller.getLeftX();
-        double angle = Math.atan2(y,x) - Math.PI/2;
-        if (angle < 0) {
-            angle += 2 * Math.PI;
-        }
+            
+    
 
-        if (Math.sqrt(x*x + y*y) >= 0.5) {
-            turret.lazySusan.setTarget(angle);
-        }
+        SmartDashboard.putNumber("Global Turret Angle", Math.toDegrees(turret.getGlobalAngle()));
 
         //System.out.println(shooting);
         SmartDashboard.putBoolean("Shooting", shooting);
-
-        
         //if(controller.getLeftBumperButton()) {
         //    rmpList.add(turret.launch.getRPM());
         //} 

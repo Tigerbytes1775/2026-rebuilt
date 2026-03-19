@@ -46,10 +46,10 @@ public class Launch extends SubsystemBase {
         SmartDashboard.setPersistent("Launch PID");
 
         if (SmartDashboard.getNumberArray("Launch PID", new double[0]).length != 4) {
-            SmartDashboard.putNumberArray("Launch PID", new double[]{0,0,0,0});
+            SmartDashboard.putNumberArray("Launch PID", new double[]{0.00025, 0.0, 0.000005, 0.00016125});
         }
 
-        double[] PIDvalues = SmartDashboard.getNumberArray("Launch PID", new double[]{0,0,0,0});
+        double[] PIDvalues = SmartDashboard.getNumberArray("Launch PID", new double[]{0.00025, 0.0, 0.000005, 0.00016125});
 
         pidController =  new PIDController(
             PIDvalues[0],

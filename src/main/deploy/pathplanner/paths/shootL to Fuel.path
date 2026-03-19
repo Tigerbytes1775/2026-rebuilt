@@ -41,13 +41,13 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "B fuel"
+      "linkedName": "new fue"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": 0.0
+      "rotationDegrees": -178.8619081780646
     }
   ],
   "constraintZones": [
@@ -77,7 +77,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -179.96582571800906
   },
   "reversed": false,
   "folder": null,

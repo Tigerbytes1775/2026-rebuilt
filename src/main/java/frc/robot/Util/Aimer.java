@@ -40,7 +40,7 @@ public class Aimer {
             double[] difference = new double[3];
 
             for(int i = 0; i < 3; i++) {
-                difference[i] = target[i] - pos[i] - robotVel[i] * time;
+                difference[i] = target[i] - pos[i]  - robotVel[i] * time;
             }
 
             angle = getTurretAngle(difference);

@@ -27,10 +27,10 @@ public class LazySusan extends SubsystemBase {
         SmartDashboard.setPersistent("Lazy Susan PID");
         
         if (SmartDashboard.getNumberArray("Lazy Susan PID", new double[0]).length == 0) {
-            SmartDashboard.putNumberArray("Lazy Susan PID", new double[]{0.1,0,0});
+            SmartDashboard.putNumberArray("Lazy Susan PID", new double[]{0.4, 0.0, 0.02});
         }
 
-        PIDvalues = SmartDashboard.getNumberArray("Lazy Susan PID", new double[]{0.1,0,0});
+        PIDvalues = SmartDashboard.getNumberArray("Lazy Susan PID", new double[]{0.4, 0.0, 0.02});
     
         pidController =  new PIDController(
             PIDvalues[0],
@@ -49,12 +49,12 @@ public class LazySusan extends SubsystemBase {
 
     public void setTarget(double angle) {
 
-        double processedAngle = (angle + Math.PI) % (2*Math.PI);
+        double processedAngle = angle;// + Math.PI) % (2*Math.PI);
 
         double target = processedAngle /(2*Math.PI) / gearRatio;
 
         pidController.setSetpoint(target);
-        SmartDashboard.putNumber("Lazy Suzan Target Angle", (Math.toDegrees(angle) + 180) % 360);
+        SmartDashboard.putNumber("Lazy Suzan Target Angle", Math.toDegrees(getAngle()) % 360);
         SmartDashboard.putNumber("Lazy Suzan Target Position", target);
         
     }

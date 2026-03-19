@@ -11,15 +11,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoShootCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "shootR to Human"
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Human to shootR"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShootCommand"
           }
         },
         {

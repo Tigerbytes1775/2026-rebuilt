@@ -6,8 +6,10 @@ package frc.robot;
 
 import java.util.function.DoubleSupplier;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.revrobotics.util.StatusLogger;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -17,7 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Vision;
+import frc.robot.commands.Auto.AutoShootCommand;
 import frc.robot.commands.Auto.ClimbAutoCommand;
+import frc.robot.commands.Auto.IntakeAutoCommand;
 import frc.robot.commands.Teleop.ClimbTeleopCommand;
 import frc.robot.commands.Teleop.IntakeCommand;
 import frc.robot.commands.Teleop.IntakePivotCommand;
@@ -72,9 +76,12 @@ public class RobotContainer {
 
   public RobotContainer() {
 
+    
 
-    NamedCommands.registerCommand("ClimbHookUp", new ClimbAutoCommand(climb, 1));
-    NamedCommands.registerCommand("ClimbHookDown", new ClimbAutoCommand(climb, 0));
+    NamedCommands.registerCommand("ShootHub", new AutoShootCommand(turret, Constants.Targets.hub, 8));
+    NamedCommands.registerCommand("Intake", new IntakeAutoCommand(intake, 5));
+    NamedCommands.registerCommand("ClimbHookUp", new ClimbAutoCommand(climb, -1, 5));
+    NamedCommands.registerCommand("ClimbHookDown", new ClimbAutoCommand(climb, 1, 5));
 
 
 

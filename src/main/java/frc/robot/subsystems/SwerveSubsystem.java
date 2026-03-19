@@ -41,8 +41,8 @@ public class SwerveSubsystem extends SubsystemBase {
       swerveDrive = new SwerveParser(directory).createSwerveDrive(
         Constants.MAX_SPEED,
         new Pose2d(
-          new Translation2d(Meter.of(0.65),
-          Meter.of(4.035)),
+          new Translation2d(Meter.of(1),//0.65
+          Meter.of(0)),//4.035
           Rotation2d.fromDegrees(0)));
       // Alternative method if you don't want to supply the conversion factor via JSON
       // files.

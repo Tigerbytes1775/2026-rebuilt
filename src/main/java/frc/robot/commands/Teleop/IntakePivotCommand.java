@@ -21,7 +21,7 @@ public class IntakePivotCommand extends Command{
     @Override
     public void execute(){
 
-        double power = controller.getRightY();
+        double power = controller.getLeftY();
 
         if (power > 0.1 || power < -0.1){
             intakePivot.setMotors(-power);

@@ -1,31 +1,27 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj.Timer;
 
+import frc.robot.subsystems.Intake;
 
-public class ClimbAutoCommand extends Command{
+public class IntakeAutoCommand extends Command{
 
-    private final Climb climb;
-    private final double power;
+    private final Intake intake;
     private final double commandTime;
     private final Timer timer = new Timer();
+ 
 
-    public ClimbAutoCommand(Climb climb, double power, double commandTime) {
-        addRequirements(climb);
-        this.climb = climb;
-        this.power = power;
+    public IntakeAutoCommand(Intake intake, double commandTime) {
+        addRequirements(intake);
+        this.intake = intake;
         this.commandTime = commandTime;
-
     }
-
 
     @Override
     public void initialize(){
         timer.reset();
         timer.start();
-        climb.setMotors(power);
     }
 
     @Override 
@@ -34,12 +30,13 @@ public class ClimbAutoCommand extends Command{
     }
 
     @Override
-    public void execute(){
+    public void execute() {
+        intake.setMotors(1);
     }
 
     @Override
     public void end(boolean interrupted) {
-       climb.setMotors(0);
+       intake.setMotors(0);
     }
     
 }

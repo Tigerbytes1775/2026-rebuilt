@@ -11,15 +11,40 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "shootL to Fuel"
+            "name": "AutoShootCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "shootL to Fuel"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "fuel to shootL"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShootCommand"
           }
         },
         {

@@ -24,7 +24,7 @@ public class IntakePivot extends SubsystemBase {
 
     public void setMotors(double percent) {
 
-        double strength = SmartDashboard.getNumber("Intake Pivot Strength", 0.5);
+        double strength = 0.8;
         double power = percent * strength;
 
         SmartDashboard.putNumber("Intake Pivot power(%)", power);

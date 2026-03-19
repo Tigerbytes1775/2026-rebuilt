@@ -69,10 +69,10 @@ public class Vision extends SubsystemBase {
         new Rotation3d(Math.toRadians(-63), 0, -Math.PI/2)
     );
 
-    //cam3, Right
+    //cam3, Right: messy
     private final Transform3d robotToCam3 = new Transform3d(
         new Translation3d(0.092075, 0.327025, 0.206375),
-        new Rotation3d(-Math.PI/4, 0, -Math.PI/2)
+        new Rotation3d(3*Math.PI/4, 0, Math.PI/2)
     );
 
     private final PhotonPoseEstimator photonEstimator1 =
