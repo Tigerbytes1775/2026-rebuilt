@@ -11,9 +11,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase {
     
-    private final TalonFX climbMotor = new TalonFX(33);
+    public final TalonFX climbMotor = new TalonFX(33);
     //private final RelativeEncoder encoder = climbMotor.getEncoder(); 
-    private final double climbStrength = 1;
+    private final double climbStrength = 0.4;
+    private final double upPos = 152;
+    private final double downPos = -13.5;
+    
+
     private double[] PIDvalues;
 
     //private final PIDController pidController; 
@@ -34,6 +38,24 @@ public class Climb extends SubsystemBase {
         //    PIDvalues[1],
         //    PIDvalues[2]
         //);
+    }
+
+    public void climb() {
+        double pos = climbMotor.getPosition().getValueAsDouble();
+        if (pos < upPos) {
+            setMotors(1);
+        } else {
+            setMotors(0);
+        }
+    }  
+    
+    public void descend() {
+        double pos = climbMotor.getPosition().getValueAsDouble();
+        if (pos > downPos) {
+            setMotors(-1);
+        } else {
+            setMotors(0);
+        }
     }
         
     public void setMotors(double percent) {

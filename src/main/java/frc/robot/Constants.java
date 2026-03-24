@@ -24,11 +24,11 @@ public final class Constants {
   public static final double MAX_SPEED = Units.feetToMeters(10);
 
   public static final double turretHeight = 0.22;
-  public static boolean isBlue = true;
+  public static boolean isBlue = DriverStation.getAlliance().get() == Alliance.Blue;
 
-  static {
-    isBlue = DriverStation.getAlliance().get() == Alliance.Blue;
-  }
+  //static {
+  //  isBlue = DriverStation.getAlliance().get() == Alliance.Blue;
+  //}
 
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;

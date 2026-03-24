@@ -11,7 +11,7 @@ public class Ramp extends SubsystemBase {
     
     private final SparkMax motor = new SparkMax(29, SparkLowLevel.MotorType.kBrushless);
 
-    private final double rampStrength = 0.3;
+    private final double rampStrength = 0.325;
     
     
     public Ramp() {}

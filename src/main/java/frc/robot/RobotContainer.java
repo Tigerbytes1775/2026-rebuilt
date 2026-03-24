@@ -80,8 +80,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ShootHub", new AutoShootCommand(turret, Constants.Targets.hub, 8));
     NamedCommands.registerCommand("Intake", new IntakeAutoCommand(intake, 5));
-    NamedCommands.registerCommand("ClimbHookUp", new ClimbAutoCommand(climb, -1, 5));
-    NamedCommands.registerCommand("ClimbHookDown", new ClimbAutoCommand(climb, 1, 5));
+    NamedCommands.registerCommand("ClimbHookUp", new ClimbAutoCommand(climb, false, 5));
+    NamedCommands.registerCommand("ClimbHookDown", new ClimbAutoCommand(climb, true, 5));
 
 
 

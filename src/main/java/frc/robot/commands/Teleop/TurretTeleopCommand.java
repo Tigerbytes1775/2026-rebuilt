@@ -65,7 +65,10 @@ public class TurretTeleopCommand extends Command {
 
             turret.powerDownLaunch();
             shooting = false;  
-            turret.ramp.setMotors(0);
+            if (turret.wasReady) {
+                turret.ramp.setMotors(0);
+                turret.wasReady = false;
+            }
 
             if (controller.getPOV() != -1) {
                 if (controller.getPOV() == 0) {

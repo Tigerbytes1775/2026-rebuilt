@@ -35,12 +35,16 @@ public class ClimbTeleopCommand extends Command{
         //    climb.setTarget(target); //go to top
         //}
         if (controller.getRightBumperButton()) {
-            climb.setMotors(-0.5);
+            climb.setMotors(-1);
+            //climb.descend();
         } else if(controller.getLeftBumperButton()) {
-            climb.setMotors(0.5);
+            //climb.climb();
+            climb.setMotors(1);
         } else {
             climb.setMotors(0); 
         }
+
+        SmartDashboard.putNumber("Climb Pos", climb.climbMotor.getPosition().getValueAsDouble());
         
     }
 

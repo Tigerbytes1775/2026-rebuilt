@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj.Timer;
 public class ClimbAutoCommand extends Command{
 
     private final Climb climb;
-    private final double power;
+    private final boolean climbing;
     private final double commandTime;
     private final Timer timer = new Timer();
-
-    public ClimbAutoCommand(Climb climb, double power, double commandTime) {
+    //if climbing false then descending
+    public ClimbAutoCommand(Climb climb, boolean climbing, double commandTime) {
         addRequirements(climb);
         this.climb = climb;
-        this.power = power;
+        this.climbing = climbing;
         this.commandTime = commandTime;
 
     }
@@ -25,7 +25,11 @@ public class ClimbAutoCommand extends Command{
     public void initialize(){
         timer.reset();
         timer.start();
-        climb.setMotors(power);
+        if (climbing) {
+            climb.climb();
+        } else {
+            climb.descend();
+        }
     }
 
     @Override 

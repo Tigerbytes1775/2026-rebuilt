@@ -22,7 +22,7 @@ public class Launch extends SubsystemBase {
 
     public final double incline = Math.toRadians(70);
 
-    private final double launchWheelRadius = 1.25 * 0.0254;//  2 inches converted to meters
+    private final double launchWheelRadius = 2.875/2 * 0.0254;// converts to meters
     private final double gearRatio = 1;
 
     //private final double launchKvRating = 505.44;// rpm/voltage 

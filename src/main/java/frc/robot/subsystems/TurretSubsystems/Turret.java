@@ -33,7 +33,7 @@ public class Turret extends SubsystemBase{
     public final Ramp ramp;
     public final LazySusan lazySusan;
     public final SwerveSubsystem swerve;
-    private boolean wasReady = false;
+    public boolean wasReady = false;
 
     public Turret(Launch launch, LazySusan lazySusan, Ramp ramp, SwerveSubsystem swerve) {
         this.launch = launch;
@@ -52,7 +52,7 @@ public class Turret extends SubsystemBase{
         //System.out.println("Aiming Started");
         
         ChassisSpeeds chassisSpeed = swerve.getRobotVelocity();
-        double[] robotVel = {chassisSpeed.vxMetersPerSecond, chassisSpeed.vyMetersPerSecond, 0};
+        double[] robotVel = {0,0,0};//{chassisSpeed.vxMetersPerSecond, chassisSpeed.vyMetersPerSecond, 0};
 
         //System.out.println("Getting Shot Info");
         double[] shotInfo = aimer.aimShot(launch.incline, getTurretPos(), target, robotVel);
